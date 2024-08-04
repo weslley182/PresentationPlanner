@@ -13,6 +13,6 @@ public class IndexModel : PageModel
 
     public void OnGet()
     {
-        _logger.LogWarning("Acessando mettodo get.");
+        _logger.LogWarning("Accessing get method.");
     }
 }

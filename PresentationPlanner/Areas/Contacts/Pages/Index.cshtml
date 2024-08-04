@@ -1,0 +1,14 @@
+﻿@page
+@model PresentationPlanner.Areas.Contacts.Pages.IndexModel
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Contacts List";
+}
+<div class="row">
+    <div class="col-6">
+        <h2 class="text-info">My Contacts</h2>
+        <a asp-area="Contacts" asp-page="Create" class="btn btn-info">
+            <i class="fas fa-plus"></i>&nbsp; Novo
+        </a>
+    </div>
+</div>
