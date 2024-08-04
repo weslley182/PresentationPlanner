@@ -20,3 +20,18 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.label-weight-bold {
+    font-weight: bold;
+}
+
+.background-white{
+    background-color: white !important;
+    padding: 30px !important;
+    border-radius: 10px !important;
+    margin-top: 30px !important;
+}
+
+.scratchs-background {
+   background-image: url('../Images/dust_scratches.png');
+}
