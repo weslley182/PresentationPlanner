@@ -4,3 +4,81 @@
     Layout = "_Layout";
     ViewData["Title"] = "New/Edit Contact";
 }
+
+<div class="row">
+    <h2 class="text-black">New Contact</h2>
+</div>
+<form method="post" enctype="multipart/form-data">
+    <div class="border background-white">
+        <div class="form-group row mb-3">
+            <div class="col-2">
+                <label asp-for="Contact.Name" class="label-weight-bold"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="Contact.Name" class="form-control" />
+                <span asp-validation-for="Contact.Name" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row mb-3">
+            <div class="col-2">
+                <label asp-for="Contact.Phone" class="label-weight-bold"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="Contact.Phone" class="form-control" />
+                <span asp-validation-for="Contact.Phone" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row mb-3">
+            <div class="col-2">
+                <label asp-for="Contact.Email" class="label-weight-bold"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="Contact.Email" class="form-control" />
+                <span asp-validation-for="Contact.Email" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row mb-3">
+            <div class="col-2">
+                <label asp-for="Contact.Birth" class="label-weight-bold"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="Contact.Birth" class="form-control" />
+                <span asp-validation-for="Contact.Birth" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row mb-3">
+            <div class="col-2">
+                <label asp-for="Contact.PhotoUrl" class="label-weight-bold"></label>
+            </div>
+            <div class="col-5">
+                <input type="file" asp-for="Contact.Picture" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row mb-3">
+            <div class="col-5 offset-2">
+                <div class="row">
+                    <div class="col-6">
+                        <input type="submit" class="btn btn-success form-control" value="Save" />
+                    </div>
+                    <div class="col-6">
+                        <a asp-page="Index" class="btn btn-danger form-control">Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var fileInput = document.getElementById('fileInput');
+        fileInput.addEventListener('change', function () {
+            var label = fileInput.nextElementSibling;
+            if (label && fileInput.files.length > 0) {
+                label.textContent = fileInput.files[0].name;
+            } else {
+                label.textContent = "No file selected";
+            }
+        });
+    });
+</script>

@@ -1,12 +1,12 @@
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using PresentationPlanner.Areas.Contacts.Models;
 
-namespace PresentationPlanner.Areas.Contacts.Pages
+namespace PresentationPlanner.Areas.Contacts.Pages;
+
+public class CreateModel : PageModel
 {
-    public class CreateModel : PageModel
+    public Contact? Contact { get; set; }
+    public void OnGet()
     {
-        public void OnGet()
-        {
-        }
     }
 }
