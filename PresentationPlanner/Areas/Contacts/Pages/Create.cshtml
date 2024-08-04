@@ -68,17 +68,3 @@
         </div>
     </div>
 </form>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var fileInput = document.getElementById('fileInput');
-        fileInput.addEventListener('change', function () {
-            var label = fileInput.nextElementSibling;
-            if (label && fileInput.files.length > 0) {
-                label.textContent = fileInput.files[0].name;
-            } else {
-                label.textContent = "No file selected";
-            }
-        });
-    });
-</script>
