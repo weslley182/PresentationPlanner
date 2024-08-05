@@ -8,11 +8,12 @@ public class CreateModel : PageModel
 {
     [BindProperty]
     public Contact? Contact { get; set; }
-    public IWebHostEnvironment Env { get; }
+
+    private readonly IWebHostEnvironment _env;
 
     public CreateModel(IWebHostEnvironment env)
     {
-        Env = env;
+        _env = env;
     }
 
     public void OnGet()
@@ -28,7 +29,7 @@ public class CreateModel : PageModel
 
         Contact.Id = Guid.NewGuid();
         Contact.PhotoUrl = Path.Combine("Images", "Contacts", $"{Contact.Id}-{Contact.Picture.FileName}");
-        var fullpath = Path.Combine(Env.WebRootPath, Contact.PhotoUrl);
+        var fullpath = Path.Combine(_env.WebRootPath, Contact.PhotoUrl);
         using (var fileStream = new FileStream(fullpath, FileMode.Create))
         {
             await Contact.Picture.CopyToAsync(fileStream, cancellationToken);
