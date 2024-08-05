@@ -27,4 +27,8 @@ public class Contact
 
     [NotMapped]
     public IFormFile? Picture { get; set; }
+
+    //public DateTime UpdateDate { get; set; }
+
+    //public bool Favorite { get; set; }
 }
