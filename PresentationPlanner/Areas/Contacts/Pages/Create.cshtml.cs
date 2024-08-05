@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PresentationPlanner.Areas.Contacts.Models;
+using PresentationPlanner.Areas.Contacts.Services.Interfaces;
 
 namespace PresentationPlanner.Areas.Contacts.Pages;
 
@@ -9,11 +10,11 @@ public class CreateModel : PageModel
     [BindProperty]
     public Contact? Contact { get; set; }
 
-    private readonly IWebHostEnvironment _env;
+    private readonly IContactService _contactService;
 
-    public CreateModel(IWebHostEnvironment env)
+    public CreateModel(IContactService contactService)
     {
-        _env = env;
+        _contactService = contactService;
     }
 
     public void OnGet()
@@ -27,14 +28,12 @@ public class CreateModel : PageModel
             return Page();
         }
 
-        Contact.Id = Guid.NewGuid();
-        Contact.PhotoUrl = Path.Combine("Images", "Contacts", $"{Contact.Id}-{Contact.Picture.FileName}");
-        var fullpath = Path.Combine(_env.WebRootPath, Contact.PhotoUrl);
-        using (var fileStream = new FileStream(fullpath, FileMode.Create))
-        {
-            await Contact.Picture.CopyToAsync(fileStream, cancellationToken);
-        }
+        var result = await _contactService.AddAsync(Contact, cancellationToken).ConfigureAwait(false);
 
-        return RedirectToPage();
+        if (!result)
+        {
+            return RedirectToPage("/Error");
+        }
+        return RedirectToPage("Index");
     }
 }

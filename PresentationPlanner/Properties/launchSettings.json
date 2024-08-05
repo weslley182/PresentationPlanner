@@ -23,6 +23,9 @@
       "dotnetRunMessages": true,
       "launchBrowser": false,
       "applicationUrl": "https://localhost:7063;http://localhost:5208",
+      "ConnectionStrings": {
+        "PlannDB": "Data Source=(localdb)\\ProjectModels;Initial Catalog=Planned;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False"
+      }
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

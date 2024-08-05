@@ -1,7 +1,20 @@
+using Microsoft.EntityFrameworkCore;
+using PresentationPlanner.Areas.Contacts.Models;
+using PresentationPlanner.Areas.Contacts.Repository;
+using PresentationPlanner.Areas.Contacts.Services;
+using PresentationPlanner.Areas.Contacts.Services.Interfaces;
+using PresentationPlanner.Shared.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddDbContextPool<DbContext, PlannDbContext>(opt =>
+    opt.UseSqlServer(builder.Configuration.GetConnectionString("PlannDB")));
+
+
+builder.Services.AddScoped<IContactService, ContactService>();
+builder.Services.AddScoped<IGenericRepository<Contact>, ContactRepository>();
 
 builder.Services.Configure<RequestLocalizationOptions>(options =>
 {
