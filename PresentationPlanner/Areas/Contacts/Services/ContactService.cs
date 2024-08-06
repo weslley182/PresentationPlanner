@@ -76,23 +76,6 @@ public class ContactService : IContactService
         return await _repo.GetByKeysAsync(cancellationToken, id).ConfigureAwait(false);
     }
 
-
-
-    //// métodos privados
-    //private async Task UploadFoto(Contato contato, CancellationToken cancellationToken)
-    //{
-    //    if (contato.Foto != null)
-    //    {
-    //        contato.FotoUrl = Path.Combine("Images", "Contatos", $"{contato.Id}-{contato.Foto.FileName}");
-    //        var fulPath = Path.Combine(_env.WebRootPath, contato.FotoUrl);
-    //        using (var fileStream = new FileStream(fulPath, FileMode.Create))
-    //        {
-    //            await contato.Foto.CopyToAsync(fileStream, cancellationToken).ConfigureAwait(false);
-    //        }
-    //    }
-
-    //}
-
     private async Task UploadPhoto(Contact contact, CancellationToken cancellationToken)
     {
         if (contact.Picture is null)
