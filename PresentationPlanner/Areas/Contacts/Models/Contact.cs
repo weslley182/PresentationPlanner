@@ -13,7 +13,8 @@ public class Contact
     public string? Name { get; set; }
 
     [Required]
-    [RegularExpression(@"^[1-9][0-9]{9}$", ErrorMessage = "Invalid phone number.")]
+    [RegularExpression(@"^[1-9]{1}[0-9]{1}\s?([9][0-9]{4}|[1-8]{1}[0-9]{3})\-?[0-9]{4}$",
+            ErrorMessage = "Número de telefone inválido")]
     public string? Phone { get; set; }
 
     [Required]
