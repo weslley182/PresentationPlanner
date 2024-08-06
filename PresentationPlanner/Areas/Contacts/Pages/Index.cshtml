@@ -76,7 +76,7 @@
                         <h5 class="card-title">@contact.Name </h5>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
-                                <label class="label-weight-bold">Email: @contact.Email</label>
+                                <label class="label-weight-bold">E-mail: @contact.Email</label>
                                 <a onclick="" class="btn btn-success btn-sm"><i class="fas fa-envelope"></i></a>
                             </li>
                             <li class="list-group-item">
@@ -87,7 +87,7 @@
                                 <label class="label-weight-bold">Birth: @contact.Birth.ToString("MM/dd/yyyy")</label>
                             </li>
                             <li class="list-group-item">
-                                <label class="label-weight-bold">Change Date: @contact.UpdateDate.ToString("MM/dd/yyyy")</label>
+                                <label class="label-weight-bold">Change Date: @(contact.UpdateDate > DateTime.MinValue ? contact.UpdateDate.ToString("MM/dd/yyyy") : string.Empty)</label>
                             </li>
                         </ul>
                         <div class="btn-group" role="group">
@@ -109,8 +109,7 @@
                                     </button>
                                 }
                             </form>
-                            <a class="btn btn-warning" title="Edit" asp-area="Contacts" asp-page="Create" asp-route-id="@contact.Id"><i class="far fa-edit"></i></a>
-                            
+                            <a class="btn btn-warning" title="Edit" asp-area="Contacts" asp-page="Create" asp-route-id="@contact.Id"><i class="far fa-edit"></i></a>                            
                             <button type="button" class="btn btn-danger" title="Delete" onclick="deleteContact('@contact.Id')"><i class="far fa-trash-alt"></i></button>
                             <button type="button" class="btn btn-primary" title="Details"><i class="fas fa-info"></i></button>
                         </div>

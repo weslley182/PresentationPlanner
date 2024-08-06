@@ -41,3 +41,11 @@ body {
     height: 500px;
     object-fit: cover;
 }
+
+.btn-group .btn {
+    margin-right: 5px; /* Espaçamento entre os botões */
+}
+
+.btn-group .btn:last-child {
+    margin-right: 0; /* Remover margem do último botão */
+}
