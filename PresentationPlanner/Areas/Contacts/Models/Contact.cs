@@ -14,7 +14,7 @@ public class Contact
 
     [Required]
     [RegularExpression(@"^[1-9]{1}[0-9]{1}\s?([9][0-9]{4}|[1-8]{1}[0-9]{3})\-?[0-9]{4}$",
-            ErrorMessage = "Invalid phone number.")]
+        ErrorMessage = "Invalid phone number.")]
     public string? Phone { get; set; }
 
     [Required]
