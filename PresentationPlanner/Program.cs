@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using PresentationPlanner.Areas.Contacts.Models;
 using PresentationPlanner.Areas.Contacts.Repository;
+using PresentationPlanner.Areas.Contacts.Repository.Interface;
 using PresentationPlanner.Areas.Contacts.Services;
 using PresentationPlanner.Areas.Contacts.Services.Interfaces;
 using PresentationPlanner.Shared.Data;
@@ -14,7 +14,7 @@ builder.Services.AddDbContextPool<DbContext, PlannDbContext>(opt =>
 
 
 builder.Services.AddScoped<IContactService, ContactService>();
-builder.Services.AddScoped<IGenericRepository<Contact>, ContactRepository>();
+builder.Services.AddScoped<IContactRepository, ContactRepository>();
 
 builder.Services.Configure<RequestLocalizationOptions>(options =>
 {

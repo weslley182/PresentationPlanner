@@ -13,42 +13,51 @@
     </div>
 </div>
 
-@* <div class="row">
+<div class="row">
     <div class="col-12 offset-4">
-        <div clas="btn-group" role="group">
-            @{
-                var minPage = Model.CurrentPage - 5 <= 1 ? 1 : Model.CurrentPage - 5;
-                var maxPage = minPage + 9 >= Model.TotalPages ? Model.TotalPages : minPage + 9;
+        <div class="btn-group" role="group">
+            @{                
+                var totalPages = Model.TotalPages;
+                var currentPage = Model.CurrentPage;
+                
+                var minPage = currentPage - 5 <= 1 ? 1 : currentPage - 5;
+                var maxPage = minPage + 9 >= totalPages ? totalPages : minPage + 9;
+                
+                if (maxPage == totalPages && maxPage - minPage < 9)
+                {
+                    minPage = maxPage - 9 > 1 ? maxPage - 9 : 1;
+                }
+                
                 if (minPage > 1)
                 {
-                    <a class="btn btn-light" title="anterior" asp-area="Contatos" asp-route-paginaAtual="@(minPage - 1)" asp-page="Index">
+                    <a class="btn btn-light" title="back" asp-area="Contacts" asp-route-currentPage="@(minPage - 1)" asp-page="Index">
                         <i class="fas fa-backward"></i>
-
                     </a>
                 }
+                
                 for (int i = minPage; i <= maxPage; i++)
                 {
-                    if (Model.CurrentPage == i)
+                    if (currentPage == i)
                     {
-                        <a class="btn btn-info active" title="pagina: @i" asp-area="Contacts" asp-route-paginaAtual="@i" asp-page="Index">@i</a>
+                        <a class="btn btn-info active" title="page: @i" asp-area="Contacts" asp-route-currentPage="@i" asp-page="Index">@i</a>
                     }
                     else
                     {
-                        <a class="btn btn-light" title="pagina: @i" asp-area="Contatos" asp-route-paginaAtual="@i" asp-page="Index">@i</a>
+                        <a class="btn btn-light" title="page: @i" asp-area="Contacts" asp-route-currentPage="@i" asp-page="Index">@i</a>
                     }
-
                 }
-                if (maxPage < Model.TotalPages)
+                
+                if (maxPage < totalPages)
                 {
-                    <a class="btn btn-light" title="avançar" asp-area="Contatos" asp-route-paginaAtual="@(maxPage + 1)" asp-page="Index">
+                    <a class="btn btn-light" title="forward" asp-area="Contacts" asp-route-currentPage="@(maxPage + 1)" asp-page="Index">
                         <i class="fas fa-forward"></i>
                     </a>
                 }
             }
-
         </div>
     </div>
-</div> *@
+</div>
+
 <div class="row row-cols-md-3 g-4">
     @if (!Model.Contacts.Any())
     {
@@ -75,11 +84,14 @@
                                 <a onclick="" class="btn btn-light"><i class="fas fa-phone-alt"></i></a>
                             </li>
                             <li class="list-group-item">
-                                <label class="label-weight-bold">Birth: @contact.Birth.ToString("dd/MM/yyyy")</label>
+                                <label class="label-weight-bold">Birth: @contact.Birth.ToString("MM/dd/yyyy")</label>
+                            </li>
+                            <li class="list-group-item">
+                                <label class="label-weight-bold">Change Date: @contact.UpdateDate.ToString("MM/dd/yyyy")</label>
                             </li>
                         </ul>
                         <div class="btn-group" role="group">
-                           @*  <form method="post" enctype="multipart/form-data">
+                            <form method="post" enctype="multipart/form-data">
                                 @if (!contact.Favorite)
                                 {
                                     <button type="submit" class="btn btn-success" title="Add to favorites"
@@ -96,8 +108,9 @@
                                         <i class="fas fa-heart"></i>
                                     </button>
                                 }
-                            </form> *@
+                            </form>
                             <a class="btn btn-warning" title="Edit" asp-area="Contacts" asp-page="Create" asp-route-id="@contact.Id"><i class="far fa-edit"></i></a>
+                            
                             <button type="button" class="btn btn-danger" title="Delete" onclick="deleteContact('@contact.Id')"><i class="far fa-trash-alt"></i></button>
                             <button type="button" class="btn btn-primary" title="Details"><i class="fas fa-info"></i></button>
                         </div>

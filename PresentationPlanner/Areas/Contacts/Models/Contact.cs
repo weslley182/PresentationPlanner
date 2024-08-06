@@ -14,7 +14,7 @@ public class Contact
 
     [Required]
     [RegularExpression(@"^[1-9]{1}[0-9]{1}\s?([9][0-9]{4}|[1-8]{1}[0-9]{3})\-?[0-9]{4}$",
-            ErrorMessage = "Número de telefone inválido")]
+        ErrorMessage = "Invalid phone number.")]
     public string? Phone { get; set; }
 
     [Required]
@@ -29,7 +29,7 @@ public class Contact
     [NotMapped]
     public IFormFile? Picture { get; set; }
 
-    //public DateTime UpdateDate { get; set; }
+    public DateTime UpdateDate { get; set; }
 
-    //public bool Favorite { get; set; }
+    public bool Favorite { get; set; }
 }

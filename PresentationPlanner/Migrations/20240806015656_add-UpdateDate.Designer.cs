@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PresentationPlanner.Shared.Data;
 
@@ -11,9 +12,11 @@ using PresentationPlanner.Shared.Data;
 namespace PresentationPlanner.Migrations
 {
     [DbContext(typeof(PlannDbContext))]
-    partial class PlannDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240806015656_add-UpdateDate")]
+    partial class addUpdateDate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,9 +37,6 @@ namespace PresentationPlanner.Migrations
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Favorite")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
