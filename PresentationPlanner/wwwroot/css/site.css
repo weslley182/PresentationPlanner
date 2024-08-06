@@ -35,3 +35,9 @@ body {
 .scratchs-background {
    background-image: url('../Images/dust_scratches.png');
 }
+
+.card-img-top {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+}
