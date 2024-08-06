@@ -27,6 +27,8 @@ public class ContactService : IContactService
     public async Task<IEnumerable<Contact>> GetAllAsync(CancellationToken cancellationToken)
     {
         return await _repo.GetAllAsync(
+            orderBy: o => o.OrderByDescending(x => x.Favorite)
+                           .ThenBy(x => x.Name),
             noTracking: true,
             cancellationToken: cancellationToken
             );
@@ -54,13 +56,13 @@ public class ContactService : IContactService
         return await _repo.CommitAsync(cancellationToken).ConfigureAwait(false);
     }
 
-    //public async Task<bool> ChangeFavorite(Guid id, CancellationToken cancellationToken)
-    //{
-    //    var contato = await _genericRepository.GetByKeysAsync(cancellationToken, id).ConfigureAwait(false);
-    //    contato.Favorito = !contato.Favorito;
-    //    _genericRepository.Update(contato);
-    //    return await _genericRepository.CommitAsync(cancellationToken).ConfigureAwait(false);
-    //}
+    public async Task<bool> ChangeFavorite(Guid id, CancellationToken cancellationToken)
+    {
+        var contact = await _repo.GetByKeysAsync(cancellationToken, id).ConfigureAwait(false);
+        contact.Favorite = !contact.Favorite;
+        _repo.Update(contact);
+        return await _repo.CommitAsync(cancellationToken).ConfigureAwait(false);
+    }
 
 
 

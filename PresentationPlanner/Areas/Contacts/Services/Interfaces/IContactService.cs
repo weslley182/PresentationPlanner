@@ -10,6 +10,6 @@ public interface IContactService
     Task<Contact> GetById(Guid id, CancellationToken cancellationToken);
     Task<bool> UpdateAsync(Contact contact, CancellationToken cancellationToken);
 
-    //Task<bool> ChangeFavorite(Guid id, CancellationToken cancellationToken);
+    Task<bool> ChangeFavorite(Guid id, CancellationToken cancellationToken);
     //Task<int> CountContacts(CancellationToken cancellationToken);
 }

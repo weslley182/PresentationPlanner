@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PresentationPlanner.Areas.Contacts.Models;
 using PresentationPlanner.Areas.Contacts.Services.Interfaces;
@@ -20,5 +21,15 @@ public class IndexModel : PageModel
     public async Task OnGetAsync(CancellationToken cancellationToken)
     {
         Contacts = await _serv.GetAllAsync(cancellationToken: cancellationToken);
+    }
+
+    public async Task<IActionResult> OnPostFavoriteAsync([FromQuery] Guid id, CancellationToken cancellationToken)
+    {
+        var result = await _serv.ChangeFavorite(id, cancellationToken).ConfigureAwait(false);
+        if (!result)
+        {
+            return RedirectToPage("/Erro");
+        }
+        return RedirectToPage("Index");
     }
 }

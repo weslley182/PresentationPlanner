@@ -31,5 +31,5 @@ public class Contact
 
     public DateTime UpdateDate { get; set; }
 
-    //public bool Favorite { get; set; }
+    public bool Favorite { get; set; }
 }
