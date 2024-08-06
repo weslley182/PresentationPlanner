@@ -50,11 +50,11 @@ public class ContactService : IContactService
         {
             _repo.UpdateContactWithoutPic(contact);
         }
-        //contact.DataModificacao = DateTime.Now;
+        contact.UpdateDate = DateTime.UtcNow;
         return await _repo.CommitAsync(cancellationToken).ConfigureAwait(false);
     }
 
-    //public async Task<bool> AlternarFavorito(Guid id, CancellationToken cancellationToken)
+    //public async Task<bool> ChangeFavorite(Guid id, CancellationToken cancellationToken)
     //{
     //    var contato = await _genericRepository.GetByKeysAsync(cancellationToken, id).ConfigureAwait(false);
     //    contato.Favorito = !contato.Favorito;
@@ -64,7 +64,7 @@ public class ContactService : IContactService
 
 
 
-    //public async Task<int> CounbtContacts(CancellationToken cancellationToken)
+    //public async Task<int> CountContacts(CancellationToken cancellationToken)
     //{
     //    return await _repo.GetAll().CountAsync(cancellationToken).ConfigureAwait(false);
     //}
