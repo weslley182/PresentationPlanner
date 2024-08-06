@@ -1,4 +1,5 @@
-﻿using PresentationPlanner.Areas.Contacts.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using PresentationPlanner.Areas.Contacts.Models;
 using PresentationPlanner.Areas.Contacts.Repository.Interface;
 using PresentationPlanner.Areas.Contacts.Services.Interfaces;
 
@@ -24,11 +25,13 @@ public class ContactService : IContactService
         return await _repo.CommitAsync(cancellationToken).ConfigureAwait(false);
     }
 
-    public async Task<IEnumerable<Contact>> GetAllAsync(CancellationToken cancellationToken)
+    public async Task<IEnumerable<Contact>> GetAllAsync(int currentPage, int qtdByPage, CancellationToken cancellationToken)
     {
         return await _repo.GetAllAsync(
             orderBy: o => o.OrderByDescending(x => x.Favorite)
                            .ThenBy(x => x.Name),
+            skip: (currentPage - 1) * qtdByPage,
+            take: qtdByPage,
             noTracking: true,
             cancellationToken: cancellationToken
             );
@@ -64,12 +67,10 @@ public class ContactService : IContactService
         return await _repo.CommitAsync(cancellationToken).ConfigureAwait(false);
     }
 
-
-
-    //public async Task<int> CountContacts(CancellationToken cancellationToken)
-    //{
-    //    return await _repo.GetAll().CountAsync(cancellationToken).ConfigureAwait(false);
-    //}
+    public async Task<int> CountContacts(CancellationToken cancellationToken)
+    {
+        return await _repo.GetAll().CountAsync(cancellationToken).ConfigureAwait(false);
+    }
 
     public async Task<Contact> GetById(Guid id, CancellationToken cancellationToken)
     {

@@ -18,9 +18,13 @@ public class IndexModel : PageModel
         _serv = serv;
     }
 
-    public async Task OnGetAsync(CancellationToken cancellationToken)
+    public async Task OnGetAsync([FromQuery] int currentPage = 1, CancellationToken cancellationToken = default)
     {
-        Contacts = await _serv.GetAllAsync(cancellationToken: cancellationToken);
+        CurrentPage = currentPage;
+        var qtdContacts = await _serv.CountContacts(cancellationToken).ConfigureAwait(false);
+        TotalPages = (int)Math.Ceiling((double)qtdContacts / QTD_BY_PAGE);
+
+        Contacts = await _serv.GetAllAsync(currentPage, QTD_BY_PAGE, cancellationToken).ConfigureAwait(false);
     }
 
     public async Task<IActionResult> OnPostFavoriteAsync([FromQuery] Guid id, CancellationToken cancellationToken)
