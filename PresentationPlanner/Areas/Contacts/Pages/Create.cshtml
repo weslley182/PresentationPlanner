@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "{id:Guid?}"
 @model PresentationPlanner.Areas.Contacts.Pages.CreateModel
 @{
     Layout = "_Layout";
@@ -6,10 +6,18 @@
 }
 
 <div class="row">
-    <h2 class="text-black">New Contact</h2>
+    @if (Model.Contact.Id == Guid.Empty)
+    {
+        <h2 class="text-info">New Contact</h2>
+    }
+    else
+    {
+        <h2 class="text-info">Change Contact Id: @Model.Contact.Id</h2>
+    }
 </div>
 <form method="post" enctype="multipart/form-data">
     <div class="border background-white">
+        <input type="hidden" asp-for="Contact.Id" />
         <div class="form-group row mb-3">
             <div class="col-2">
                 <label asp-for="Contact.Name" class="label-weight-bold"></label>
@@ -58,7 +66,14 @@
             <div class="col-5 offset-2">
                 <div class="row">
                     <div class="col-6">
-                        <input type="submit" class="btn btn-success form-control" value="Save" />
+                        @if (Model.Contact.Id == Guid.Empty)
+                        {
+                            <input type="submit" class="btn btn-success form-control" value="Save" />
+                        }
+                        else
+                        {
+                            <input type="submit" class="btn btn-warning form-control" asp-page-handler="Update" value="Change" />
+                        }
                     </div>
                     <div class="col-6">
                         <a asp-page="Index" class="btn btn-danger form-control">Cancel</a>

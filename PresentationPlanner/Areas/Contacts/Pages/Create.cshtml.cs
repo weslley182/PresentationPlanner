@@ -8,7 +8,7 @@ namespace PresentationPlanner.Areas.Contacts.Pages;
 public class CreateModel : PageModel
 {
     [BindProperty]
-    public Contact? Contact { get; set; }
+    public Contact? Contact { get; set; } = new Contact();
 
     private readonly IContactService _contactService;
 
@@ -17,8 +17,12 @@ public class CreateModel : PageModel
         _contactService = contactService;
     }
 
-    public void OnGet()
+    public async Task OnGetAsync([FromRoute] Guid? id, CancellationToken cancellationToken)
     {
+        if (id.HasValue)
+        {
+            Contact = await _contactService.GetById(id.Value, cancellationToken).ConfigureAwait(false);
+        }
     }
 
     public async Task<IActionResult> OnPostAsync(CancellationToken cancellationToken)
@@ -34,6 +38,22 @@ public class CreateModel : PageModel
         {
             return RedirectToPage("/Error");
         }
+        return RedirectToPage("Index");
+    }
+
+    public async Task<IActionResult> OnPostUpdateAsync(CancellationToken cancellationToken)
+    {
+        if (!ModelState.IsValid)
+        {
+            return Page();
+        }
+
+        var result = await _contactService.UpdateAsync(Contact, cancellationToken).ConfigureAwait(false);
+        if (!result)
+        {
+            return RedirectToPage("/Error");
+        }
+
         return RedirectToPage("Index");
     }
 }
